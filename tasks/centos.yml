@@ -13,6 +13,7 @@
     state: present
 - name: Initialize the database
   command: "/usr/pgsql-17/bin/postgresql-17-setup initdb"
+  ignore_errors: true
 - name: Enable and start postgresql
   service:
     name: postgresql-17
