@@ -70,7 +70,7 @@
       - libpq-devel
       - openssl-devel
       - zlib-devel
-- name: Download and unpach netbox release archive
+- name: Download and unpack netbox release archive
   unarchive:
     src: https://github.com/netbox-community/netbox/archive/refs/tags/v4.3.2.tar.gz
     dest: /opt
