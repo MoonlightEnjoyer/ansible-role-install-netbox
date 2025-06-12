@@ -13,13 +13,13 @@
     name: netbox
     password: TODO
 
----
+#---
 #Redis section
 - name: Install Redis
   apt:
     name: redis-server
 
----
+#---
 #Netbox section
 - name: Install required packages
   apt:
