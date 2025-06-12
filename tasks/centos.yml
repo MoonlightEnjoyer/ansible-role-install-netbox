@@ -29,17 +29,17 @@
       - python3-devel
       - postgresql17-devel
       - python3-psycopg2
+- name: Create netbox database
+  community.postgresql.postgresql_db:
+    name: netbox
+    owner: netbox
+  become: true
+  become_user: postgres
 - name: Create psql user netbox
   community.postgresql.postgresql_user:
     login_db: netbox
     name: netbox
     password: TODO
-  become: true
-  become_user: postgres
-- name: Create netbox database
-  community.postgresql.postgresql_db:
-    name: netbox
-    owner: netbox
   become: true
   become_user: postgres
 
