@@ -36,3 +36,15 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+Role Installation
+=========
+Prepare requirements.yml file:
+
+- name: ansible-role-install-netbox
+  src: https://github.com/MoonlightEnjoyer/ansible-role-install-netbox.git
+  scm: git
+
+------------------
+Install role from requirements.yml:
+  ansible-galaxy install -r requirements.yml
