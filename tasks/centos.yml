@@ -1,7 +1,7 @@
 ---
 #PostgreSQL section
 - name: Install PostgreSQL
-  apt:
+  dnf:
     name: postgresql
 - name: Create netbox database
   community.postgresql.postgresql_db:
@@ -16,13 +16,13 @@
 #---
 #Redis section
 - name: Install Redis
-  apt:
+  dnf:
     name: redis-server
 
 #---
 #Netbox section
 - name: Install required packages
-  apt:
+  dnf:
     name:
       - python3
       - python3-pip
