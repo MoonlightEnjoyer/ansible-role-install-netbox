@@ -64,12 +64,12 @@
       - gcc
       - gcc-c++
       - make
-      - libxml2-dev
-      - libxslt1-dev
-      - libffi-dev
-      - libpq-dev
-      - libssl-dev
-      - zlib1g-dev
+      - libxml2-devel
+      - libxslt1-devel
+      - libffi-devel
+      - libpq-devel
+      - libssl-devel
+      - zlib1g-devel
 - name: Download and unpach netbox release archive
   unarchive:
     src: https://github.com/netbox-community/netbox/archive/refs/tags/v4.3.2.tar.gz
