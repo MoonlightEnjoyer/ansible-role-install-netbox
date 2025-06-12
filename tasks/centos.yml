@@ -19,12 +19,15 @@
     name: postgresql-17
     state: restarted
     enabled: true
+- name: Enable crb repository (needed to install perl-IPC run for postgresql-devel)
+  command: dnf config-manager --set-enabled crb
 - name: Install community.postgresql.postgresql_db requirements
   dnf:
     name:
+      - perl-IPC-Run
       - python3-pip
       - python3-devel
-      - postgresql-devel
+      - postgresql17-devel
       - python3-psycopg2
 - name: Create netbox database
   community.postgresql.postgresql_db:
