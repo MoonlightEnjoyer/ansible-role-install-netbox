@@ -46,7 +46,12 @@
 #Redis section
 - name: Install Redis
   dnf:
-    name: redis-server
+    name: redis
+- name: Restart and enable Redis
+  service:
+    name: redis
+    state: restarted
+    enabled: true
 
 #---
 #Netbox section
