@@ -80,6 +80,11 @@
     src: /opt/netbox-4.3.2/
     dest: /opt/netbox
     state: link
+- name: Create netbox group
+  group:
+    name: netbox
+    state: present
+    system: true
 - name: Create netbox user
   user:
     name: netbox
