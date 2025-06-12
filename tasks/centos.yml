@@ -65,11 +65,11 @@
       - gcc-c++
       - make
       - libxml2-devel
-      - libxslt1-devel
+      - libxslt-devel
       - libffi-devel
       - libpq-devel
-      - libssl-devel
-      - zlib1g-devel
+      - openssl-devel
+      - zlib-devel
 - name: Download and unpach netbox release archive
   unarchive:
     src: https://github.com/netbox-community/netbox/archive/refs/tags/v4.3.2.tar.gz
