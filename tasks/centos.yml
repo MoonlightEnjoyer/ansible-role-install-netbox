@@ -16,7 +16,7 @@
 - name: Enable and start postgresql
   service:
     name: postgresql-17
-    status: restarted
+    state: restarted
     enabled: true
 - name: Install community.postgresql.postgresql_db requirements
   dnf:
