@@ -107,6 +107,8 @@
     src: templates/configuration.py.j2
     dest: /opt/netbox/netbox/netbox/configuration.py
 - name: Run the upgrade script
-  command: PYTHON=/usr/bin/python3.12 /opt/netbox/upgrade.sh
+  command: /opt/netbox/upgrade.sh
+  environment:
+    PYTHON: /usr/bin/python3.12
 # - name: Create a super user
 #   command: /opt/netbox/venv/bin/activate && python3 /opt/netbox/netbox/manage.py createsuperuser
