@@ -150,7 +150,7 @@
 
 #---
 #Nginx section    
-- name: Install nginx
-  roles:
-    - nginxinc.nginx
+- name: Install NGINX
+  include_role:
+    name: nginxinc.nginx
 
