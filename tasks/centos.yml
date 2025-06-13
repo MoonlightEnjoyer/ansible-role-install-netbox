@@ -67,7 +67,7 @@
       - libxml2-devel
       - libxslt-devel
       - libffi-devel
-      - libpq-devel
+      - libpq5-devel
       - openssl-devel
       - zlib-devel
 - name: Download and unpack netbox release archive
