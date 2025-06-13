@@ -134,7 +134,7 @@
     src: "{{ item }}"
     dest: "/etc/systemd/system/"
     remote_src: true
-  with_fileglob: "{{ netbox_unit_files }}"
+  with_items: "{{ netbox_unit_files }}"
 - name: Start and enable netbox and netbox-rq services
   systemd_service:
     name: netbox
