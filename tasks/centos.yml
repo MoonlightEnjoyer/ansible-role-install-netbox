@@ -133,15 +133,16 @@
     - "/opt/netbox/contrib/*.service"
 - name: Start and enable netbox and netbox-rq services
   systemd_service:
-    name:
-      - netbox
+    name: netbox
     state: restarted
     enabled: true
     daemon_reload: true
 - name: Start and enable netbox and netbox-rq services
   systemd_service:
-    name:
-      - netbox-rq
+    name: netbox-rq
     state: restarted
     enabled: true
     daemon_reload: true
+
+#---
+#Nginx section
