@@ -131,7 +131,7 @@
   register: netbox_unit_files
 - name: Copy unit files to systemd directory
   copy:
-    src: "{{ item }}"
+    src: "{{ item.path }}"
     dest: "/etc/systemd/system/"
     remote_src: true
   with_items: "{{ netbox_unit_files.files }}"
