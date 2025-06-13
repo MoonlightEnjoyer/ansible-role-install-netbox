@@ -124,13 +124,17 @@
     src: /opt/netbox/contrib/gunicorn.py
     dest: /opt/netbox/gunicorn.py
     remote_src: true
+- name: Create list of netbox unit files
+  find:
+    paths: /opt/netbox/contrib/
+    patterns: '*.service'
+  register: netbox_unit_files
 - name: Copy unit files to systemd directory
   copy:
     src: "{{ item }}"
     dest: "/etc/systemd/system/"
     remote_src: true
-  with_fileglob:
-    - "/opt/netbox/contrib/*.service"
+  with_fileglob: "{{ netbox_unit_files }}"
 - name: Start and enable netbox and netbox-rq services
   systemd_service:
     name: netbox
