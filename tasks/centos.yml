@@ -149,4 +149,8 @@
     daemon_reload: true
 
 #---
-#Nginx section
+#Nginx section    
+- name: Install nginx
+  roles:
+    - nginxinc.nginx
+
