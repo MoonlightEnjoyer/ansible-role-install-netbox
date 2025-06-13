@@ -15,7 +15,7 @@
   command: "/usr/pgsql-17/bin/postgresql-17-setup initdb"
   ignore_errors: true
 - name: Enable and start postgresql
-  service:
+  systemd_service:
     name: postgresql-17
     state: restarted
     enabled: true
@@ -48,7 +48,7 @@
   dnf:
     name: redis
 - name: Restart and enable Redis
-  service:
+  systemd_service:
     name: redis
     state: restarted
     enabled: true
@@ -110,5 +110,31 @@
   command: /opt/netbox/upgrade.sh
   environment:
     PYTHON: /usr/bin/python3.12
-# - name: Create a super user
-#   command: /opt/netbox/venv/bin/activate && python3 /opt/netbox/netbox/manage.py createsuperuser
+- name: Schedule the housekeeping task
+  file:
+    src: /opt/netbox/contrib/netbox-housekeeping.sh
+    dest: /etc/cron.daily/netbox-housekeeping
+    state: link
+
+
+#---
+#Gunicorn section
+- name: Copy gunicorn configuration file
+  copy:
+    src: /opt/netbox/contrib/gunicorn.py
+    dest: /opt/netbox/gunicorn.py
+    remote_src: true
+- name: Copy unit files to systemd directory
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/"
+  with_fileglob:
+    - "/opt/netbox/contrib/*.service"
+- name: Start and enable netbox and netbox-rq services
+  systemd_service:
+    name:
+      - netbox
+      - netbox-rq
+    state: restarted
+    enabled: true
+    daemon_reload: true
