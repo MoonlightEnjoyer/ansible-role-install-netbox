@@ -135,6 +135,12 @@
   systemd_service:
     name:
       - netbox
+    state: restarted
+    enabled: true
+    daemon_reload: true
+- name: Start and enable netbox and netbox-rq services
+  systemd_service:
+    name:
       - netbox-rq
     state: restarted
     enabled: true
