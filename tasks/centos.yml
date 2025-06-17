@@ -149,8 +149,79 @@
     daemon_reload: true
 
 #---
-#Nginx section    
-- name: Install NGINX
-  include_role:
-    name: nginxinc.nginx
+#Self signed certificate section
+- name: Create CA private key
+  community.crypto.openssl_privatekey:
+    path: /etc/ssl/ca/ca-cert.key
+- name: Create certificate signing request (CSR) for CA certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: /etc/ssl/ca/ca-cert.key
+    common_name: Ansible-Netbox CA
+    use_common_name_for_san: false
+    basic_constraints:
+      - 'CA:TRUE'
+    basic_constraints_critical: true
+    key_usage:
+      - keyCertSign
+    key_usage_critical: true
+  register: ca_csr
+- name: Create self-signed CA certificate from CSR
+  community.crypto.x509_certificate:
+    path: /etc/ssl/ca/ca-cert.pem
+    csr_content: "{{ ca_csr.csr }}"
+    privatekey_path: /etc/ssl/ca/ca-cert.key
+    provider: selfsigned
+
+- name: Create private key for new certificate
+  community.crypto.openssl_privatekey:
+    path: /etc/ssl/private/netbox.key
+
+- name: Create certificate signing request (CSR) for new certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: /etc/ssl/private/netbox.key
+    subject_alt_name:
+      - "DNS:netbox.music-share.ru"
+  register: csr
+
+- name: Sign certificate with our CA
+  community.crypto.x509_certificate_pipe:
+    csr_content: "{{ csr.csr }}"
+    provider: ownca
+    ownca_path: /etc/ssl/ca/ca-cert.pem
+    ownca_privatekey_path: /etc/ssl/ca/ca-cert.key
+    ownca_not_after: +365d  # valid for one year
+    ownca_not_before: "-1d"  # valid since yesterday
+  register: certificate
+
+- name: Write certificate file
+  copy:
+    dest: /etc/ssl/certs/netbox.pem
+    content: "{{ certificate.certificate }}"
+
+#---
+#Nginx section
+- name: Install nginx
+  dnf:
+    name: nginx
+    state: present
+- name: Copy netbox nginx configuration
+  copy:
+    src: /opt/netbox/contrib/nginx.conf
+    dst: /etc/nginx/sites-available/netbox
+    remote_src: true
+- name: Remove default nginx config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+- name: Create sites-enabled symlink to sites-available netbox config
+  file:
+    src: /etc/nginx/sites-available/netbox
+    dest: /etc/nginx/sites-enabled/netbox
+    state: link
+- name: Enable and restart nginx
+  systemd_service:
+    name: nginx
+    status: restarted
+    enabled: true
+
 
