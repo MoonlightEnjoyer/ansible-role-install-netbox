@@ -219,17 +219,12 @@
 - name: Copy netbox nginx configuration
   copy:
     src: /opt/netbox/contrib/nginx.conf
-    dest: /etc/nginx/sites-available/netbox
+    dest: /etc/nginx/conf.d/netbox.conf
     remote_src: true
 - name: Remove default nginx config
   file:
-    path: /etc/nginx/sites-enabled/default
+    path: /etc/nginx/conf.d/default.conf
     state: absent
-- name: Create sites-enabled symlink to sites-available netbox config
-  file:
-    src: /etc/nginx/sites-available/netbox
-    dest: /etc/nginx/sites-enabled/netbox
-    state: link
 - name: Enable and restart nginx
   systemd_service:
     name: nginx
