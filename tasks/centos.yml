@@ -219,7 +219,7 @@
 - name: Copy netbox nginx configuration
   copy:
     src: /opt/netbox/contrib/nginx.conf
-    dst: /etc/nginx/sites-available/netbox
+    dest: /etc/nginx/sites-available/netbox
     remote_src: true
 - name: Remove default nginx config
   file:
