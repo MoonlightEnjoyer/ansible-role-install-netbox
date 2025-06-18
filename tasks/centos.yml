@@ -191,8 +191,9 @@
 - name: Create certificate signing request (CSR) for new certificate
   community.crypto.openssl_csr_pipe:
     privatekey_path: /etc/ssl/private/netbox.key
+    common_name: netbox.music-share.ru
     subject_alt_name:
-      - "DNS:netbox.music-share.ru"
+      - "IP:192.168.56.4"
   register: csr
 
 - name: Sign certificate with our CA
