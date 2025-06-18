@@ -228,7 +228,7 @@
 - name: Enable and restart nginx
   systemd_service:
     name: nginx
-    status: restarted
+    state: restarted
     enabled: true
 
 
