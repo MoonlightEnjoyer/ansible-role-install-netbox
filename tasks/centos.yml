@@ -135,13 +135,13 @@
     dest: "/etc/systemd/system/"
     remote_src: true
   with_items: "{{ netbox_unit_files.files }}"
-- name: Start and enable netbox and netbox-rq services
+- name: Start and enable netbox service
   systemd_service:
     name: netbox
     state: restarted
     enabled: true
     daemon_reload: true
-- name: Start and enable netbox and netbox-rq services
+- name: Start and enable netbox-rq service
   systemd_service:
     name: netbox-rq
     state: restarted
@@ -150,6 +150,10 @@
 
 #---
 #Self signed certificate section
+- name: Install python cryptography library
+  pip:
+    name: cryptography
+
 - name: Create certificate directories
   file:
     path: "{{ item }}"
