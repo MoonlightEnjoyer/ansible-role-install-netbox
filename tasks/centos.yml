@@ -199,7 +199,7 @@
   community.crypto.x509_certificate_pipe:
     csr_content: "{{ csr.csr }}"
     provider: ownca
-    ownca_path: /etc/ssl/ca/ca-cert.crt
+    ownca_path: /etc/ssl/ca/ca-cert.pem
     ownca_privatekey_path: /etc/ssl/ca/ca-cert.key
     ownca_not_after: +365d  # valid for one year
     ownca_not_before: "-1d"  # valid since yesterday
