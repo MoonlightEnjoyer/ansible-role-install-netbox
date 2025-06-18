@@ -150,6 +150,14 @@
 
 #---
 #Self signed certificate section
+- name: Create certificate directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/ssl/ca/
+    - /etc/ssl/private/
+
 - name: Create CA private key
   community.crypto.openssl_privatekey:
     path: /etc/ssl/ca/ca-cert.key
