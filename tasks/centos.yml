@@ -34,12 +34,16 @@
   community.postgresql.postgresql_user:
     name: netbox
     password: "{{ postgres_password }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12
   become: true
   become_user: postgres
 - name: Create netbox database
   community.postgresql.postgresql_db:
     name: netbox
     owner: netbox
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12
   become: true
   become_user: postgres
 
