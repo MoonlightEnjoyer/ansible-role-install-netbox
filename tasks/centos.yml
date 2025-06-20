@@ -233,5 +233,7 @@
     state: restarted
     enabled: true
   become: true
+- name: Allow HTTP network connections with SELinux
+  command: setsebool -P httpd_can_network_connect 1
 
 
