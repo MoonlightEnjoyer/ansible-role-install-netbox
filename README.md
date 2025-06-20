@@ -49,4 +49,4 @@ Prepare requirements.yml file:
 
 ------------------
 Install role from requirements.yml:
-  ansible-galaxy install -r requirements.yml
+  ansible-galaxy role install -f -r requirements.yml

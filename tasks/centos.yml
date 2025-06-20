@@ -11,6 +11,7 @@
   dnf:
     name: postgresql17-server
     state: present
+    update_cache: true
 - name: Initialize the database
   command: "/usr/pgsql-17/bin/postgresql-17-setup initdb"
   ignore_errors: true
