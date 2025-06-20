@@ -232,6 +232,6 @@
     name: nginx
     state: restarted
     enabled: true
-    become: true
+  become: true
 
 
