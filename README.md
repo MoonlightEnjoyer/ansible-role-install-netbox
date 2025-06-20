@@ -5,8 +5,7 @@ A brief description of the role goes here.
 
 Requirements
 ------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Target host must have tar and unzip packages installed, because the are used by one of the role tasks.
 
 Role Variables
 --------------
