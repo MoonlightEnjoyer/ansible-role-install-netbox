@@ -6,6 +6,8 @@ This role installs netbox and its dependencies on a target machine.
 !IMPORTANT!
 This role modifies nginx configuration (/etc/nginx/nginx.conf file) of the target host!
 
+After the installation, you should check firewall and nginx configuration, create netbox superuser.
+
 Requirements
 ------------
 Target host must have tar and unzip packages installed, because the are used by one of the role tasks.
@@ -22,11 +24,26 @@ Dependencies
 Example Playbook
 ----------------
 
-<!-- Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+---
+- name: Prepare host
+  hosts: hosts
+  tasks:
+    - name: Prepare host
+      dnf:
+        name:
+          - unzip
+          - tar
+        state: present
+        update_cache: true
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 } -->
+- name: Install netbox
+  hosts: hosts
+  vars_prompt:
+    - name: postgres_password
+      prompt: Enter the for PostgreSQL netbox database
+  roles:
+    - role: ansible-role-install-netbox
+    
 
 License
 -------
