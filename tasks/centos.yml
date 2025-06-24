@@ -231,11 +231,16 @@
   file:
     path: /etc/nginx/conf.d/default.conf
     state: absent
-- name: Remove redundant config part
+- name: Remove redundant config part 0
   replace:
     path: /etc/nginx/nginx.conf
     after: 'server'
     regexp: '^(.+)'
+    replace: ''
+- name: Remove redundant config part 1
+  replace:
+    path: /etc/nginx/nginx.conf
+    regexp: 'server'
     replace: ''
 - name: Enable and restart nginx
   systemd_service:
