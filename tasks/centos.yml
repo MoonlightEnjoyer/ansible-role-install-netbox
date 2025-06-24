@@ -241,7 +241,7 @@
   replace:
     path: /etc/nginx/nginx.conf
     regexp: 'server'
-    replace: ''
+    replace: '}'
 - name: Enable and restart nginx
   systemd_service:
     name: nginx
