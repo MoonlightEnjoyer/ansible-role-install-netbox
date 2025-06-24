@@ -234,7 +234,7 @@
 - name: Remove redundant config part
   replace:
     path: /etc/nginx/nginx.conf
-    regexp: 'server \{.*'
+    regexp: 'server \{.*\Z'
     replace: ''
 - name: Enable and restart nginx
   systemd_service:
