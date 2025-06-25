@@ -40,7 +40,7 @@ Example Playbook
   hosts: hosts
   vars_prompt:
     - name: postgres_password
-      prompt: Enter the for PostgreSQL netbox database
+      prompt: Enter the password for PostgreSQL netbox database
   roles:
     - role: ansible-role-install-netbox
     
